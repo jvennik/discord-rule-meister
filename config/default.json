@@ -1,0 +1,9 @@
+{
+  "general": {
+    "commandPrefix": "!",
+    "botToken": "",
+    "botUserName": "rule-meister",
+    "dbPath": "db.sqlite3"
+  },
+  "authorizedRoles": ["Admin", "Mod"]
+}
