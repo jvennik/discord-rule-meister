@@ -1,4 +1,5 @@
 // Utils
+import { guildCreate } from "./guildcreate";
 import { isMod } from "./utils/permissions";
 import { purge } from "./utils/purge";
 import { rebind } from "./utils/rebind";
@@ -6,7 +7,6 @@ import { rebind } from "./utils/rebind";
 // DB imports
 import { DBCreate } from "./utils/dbcreate";
 import { dbget } from "./utils/dbget";
-import { guildCheck } from "./utils/guildcheck";
 import { run } from "./utils/dbrun";
 
 // Emoji collectors
@@ -36,6 +36,16 @@ client.on("error", async () => {
   // Add error logging
 });
 
+client.on("guildCreate", async guild => {
+  console.log("Creating guild: " + guild.name);
+  await guildCreate(guild.id);
+});
+
+client.on("guildDelete", async guild => {
+  console.log("Deleting guild: " + guild.name);
+  await guildDelete(guild.id);
+});
+
 client.on("guildMemberAdd", async member => {
   // Add `initial_role` to new members if it exists
   console.log("Member joined:" + member);
@@ -61,8 +71,6 @@ client.on("message", async msg => {
   const isAuthorized = isMod(msg);
 
   if (msg.content.startsWith(`${prefix}rules`) && isAuthorized) {
-    guildCheck(msg.guild.id);
-
     if (msg.content.indexOf("set channel") > 0) {
       // Fetch channel name from message
       const displayChannelName = msg.content.split(" ")[3];
