@@ -6,7 +6,7 @@ export const guildCheck = async function guildCheck(guildId) {
 
   if (exists === undefined) {
     // Create guild if it does not exist yet
-    console.log("Creating guild: " + msg.guild.id);
-    guildCreate(msg.guild.id);
+    console.log("Creating guild: " + guildId);
+    guildCreate(guildId);
   }
 };

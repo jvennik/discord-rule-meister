@@ -12,6 +12,10 @@ export const rebind = async function rebind(client, guild) {
 
   const settings = await dbget(sql, [guild.id]);
 
+  if (!settings || !settings.channel || !settings.message) {
+    return;
+  }
+
   const channel = guild.channels.find(
     channel => channel.id === settings.channel
   );

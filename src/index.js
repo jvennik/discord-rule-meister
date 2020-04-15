@@ -22,7 +22,7 @@ const prefix = config.general.commandPrefix;
 
 client.on("ready", async () => {
   client.user.setUsername(config.general.botUsername);
-  DBCreate();
+  await DBCreate();
 
   // Find existing message & rebind
   client.guilds.forEach(guild => {
