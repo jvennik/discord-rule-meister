@@ -1,5 +1,5 @@
 // Utils
-import { guildCreate } from "./guildcreate";
+import { guildCreate } from "./utils/guildcreate";
 import { isMod } from "./utils/permissions";
 import { purge } from "./utils/purge";
 import { rebind } from "./utils/rebind";
