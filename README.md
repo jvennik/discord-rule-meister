@@ -1,8 +1,8 @@
-Rule-meister
+# Rule-meister
 
 A simple rule bot that grants roles on join & when accepting rules.
 
-=== Commands
+## Commands
 
 `!rules set channel #rules` to select the target channel
 
@@ -15,3 +15,7 @@ A simple rule bot that grants roles on join & when accepting rules.
 `!rules check settings` Verifies all settings
 
 `!rules post` To post to the target channel
+
+
+## Invite 
+https://discordapp.com/api/oauth2/authorize?client_id=698850999137468456&permissions=268444736&scope=bot
