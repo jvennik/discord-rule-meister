@@ -15,8 +15,8 @@ export const setupAddEmojiCollector = async function setupAddEmojiCollector(
   collector.on("collect", reaction => {
     reaction.users.forEach(user => {
       if (!user.bot) {
+        const member = msg.guild.member(user.id);
         if (member !== null) {
-          const member = msg.guild.member(user.id);
           const grantRole = msg.guild.roles.find(
             role => role.id === settings.grant_role
           );
