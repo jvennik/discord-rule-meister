@@ -21,15 +21,17 @@ export const rebind = async function rebind(client, guild) {
   );
 
   let bindMessage = "";
-  await channel.fetchMessages().then(messages => {
-    const msgArray = messages.array();
+  if (channel) {
+    await channel.fetchMessages().then(messages => {
+      const msgArray = messages.array();
 
-    msgArray.forEach(message => {
-      if (message.content.indexOf(settings.message) >= 0) {
-        bindMessage = message;
-      }
+      msgArray.forEach(message => {
+        if (message.content.indexOf(settings.message) >= 0) {
+          bindMessage = message;
+        }
+      });
     });
-  });
+  }
 
   if (bindMessage) {
     setupAddEmojiCollector(bindMessage);
