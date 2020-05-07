@@ -62,7 +62,7 @@ export const setupAddEmojiCollector = async function setupAddEmojiCollector(
           });
         }
       }
-    }
+    });
   });
 };
 
