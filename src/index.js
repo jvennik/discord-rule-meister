@@ -56,7 +56,7 @@ client.on("guildMemberAdd", async member => {
   `;
 
   const settings = await dbget(sql, [member.guild.id]);
-  if (settings.initial_role) {
+  if (settings && settings.initial_role) {
     const role = member.guild.roles.find(
       role => role.id === settings.initial_role
     );
@@ -65,6 +65,8 @@ client.on("guildMemberAdd", async member => {
       console.error(err);
       console.error("Failed to add initial_role to: " + member);
     });
+  } else {
+    console.log("No settings defined, no initial_role granted");
   }
 });
 
