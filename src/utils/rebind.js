@@ -1,7 +1,7 @@
 import { dbget } from "./dbget";
 
 import { setupAddEmojiCollector } from "../collectors/setup-add-emoji-collector.js";
-// import { setupRemoveEmojiCollector } from "../collectors/setup-remove-emoji-collector.js";
+import { setupRemoveEmojiCollector } from "../collectors/setup-remove-emoji-collector.js";
 
 export const rebind = async function rebind(client, guild) {
   const sql = `
@@ -35,6 +35,6 @@ export const rebind = async function rebind(client, guild) {
 
   if (bindMessage) {
     setupAddEmojiCollector(bindMessage);
-    // setupRemoveEmojiCollector(client, bindMessage);
+    setupRemoveEmojiCollector(client, bindMessage);
   }
 };

@@ -12,7 +12,7 @@ export const setupRemoveEmojiCollector = async function setupRemoveEmojiCollecto
   const settings = await dbget(sql, [msg.guild.id]);
 
   client.on("messageReactionRemove", (reaction, user) => {
-    if (reaction.msg.channel.id === settings.channel && reaction.emoji.name === "✅") {
+    if (reaction.message.channel.id === settings.channel && reaction.emoji.name === "✅") {
       if (!user.bot) {
         const member = msg.guild.member(user.id);
         if (member !== null) {
