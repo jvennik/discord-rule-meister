@@ -76,6 +76,10 @@ client.on("message", async msg => {
   if (msg.content.startsWith(`${prefix}rules`) && isAuthorized) {
     if (msg.content.indexOf("set channel") > 0) {
       // Fetch channel name from message
+      if (!msg.content) {
+        return;
+      }
+
       const displayChannelName = msg.content.split(" ")[3];
       const channelId = displayChannelName.split("<#")[1].split(">")[0];
 
@@ -207,6 +211,11 @@ client.on("message", async msg => {
       WHERE guild = ?
       `;
 
+      if (!msg.guild) {
+        // For some reason this happens
+        return;
+      }
+
       const settings = await dbget(sql, [msg.guild.id]);
 
       for (const property in settings) {
@@ -220,7 +229,10 @@ client.on("message", async msg => {
       );
 
       purge(channel);
-      const posted = await channel.send(settings.message);
+      const posted = await channel.send(settings.message).catch(err => {
+        console.error(err);
+        console.error("Failed to post message");
+      });
       posted.react("✅");
 
       setupAddEmojiCollector(posted);
