@@ -21,4 +21,4 @@ A simple rule bot that grants roles on join & when accepting rules.
 https://discordapp.com/api/oauth2/authorize?client_id=698850999137468456&permissions=268444736&scope=bot
 
 ## Support discord
-https://discord.gg/Z85QX7
+https://discord.gg/p5US6h
