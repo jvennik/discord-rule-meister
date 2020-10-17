@@ -17,9 +17,9 @@ const loadAuthorizedRoles = (): string[] => {
 
 const config: Config = {
   general: {
-    commandPrefix: process.env.BOT_COMMAND_PREFIX ?? '!roles',
+    commandPrefix: process.env.BOT_COMMAND_PREFIX ?? '?rules',
     botToken: process.env.BOT_TOKEN,
-    botUsername: process.env.BOT_USERNAME ?? 'RoleMeister',
+    botUsername: process.env.BOT_USERNAME ?? 'RuleMeister',
     ownerId: process.env.BOT_OWNER_ID,
   },
   authorizedRoles: loadAuthorizedRoles(),
