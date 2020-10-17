@@ -19,7 +19,11 @@ export const rebind = async function rebind({
       (channel: { id: string }) => channel.id === settingsObj?.channel
     );
 
-    const targetChannel = await boundChannel?.fetch();
+    if(!boundChannel) {
+      return false;
+    }
+
+    const targetChannel = await boundChannel.fetch();
     let bindMessage = null;
     await (targetChannel as TextChannel).messages.fetch().then((messages) => {
       const msgArray = messages.array();
