@@ -22,7 +22,18 @@ export class Settings {
 
   valid() {
     const values = [this.channel, this.message, this.initial_role, this.grant_role];
-    const validated = values.every(function(item) { return item !== '' });
+    const validated = values.every(function(item) { 
+      switch(item) {
+        case null:
+          return false;
+        case '':
+          return false;
+        case undefined:
+          return false;
+        default:
+          return true;
+      }
+     });
     return validated;
   }
 

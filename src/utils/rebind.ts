@@ -14,7 +14,7 @@ export const rebind = async function rebind({
     where: { guild: guild.id },
   });
 
-  if (settingsObj?.valid()) {
+  if (settingsObj && settingsObj.valid()) {
     const boundChannel = guild.channels.cache.find(
       (channel: { id: string }) => channel.id === settingsObj?.channel
     );

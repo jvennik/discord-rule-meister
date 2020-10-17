@@ -1,6 +1,7 @@
 import { Guild } from 'discord.js';
 import { getRepository } from 'typeorm';
 import { Settings } from '../entity/Settings';
+import createGuild from '../utils/createGuild';
 
 export const checkSettings = async function checkSettings({
   guild,
@@ -9,11 +10,11 @@ export const checkSettings = async function checkSettings({
 }): Promise<string> {
   const settingsRepository = getRepository(Settings);
 
-  const settings = await settingsRepository.findOne({
+  let settings = await settingsRepository.findOne({
     where: { guild: guild.id },
   });
   if (!settings) {
-    return "No settings found. Please re-add the bot to the server";
+    settings = await createGuild({guildId: guild.id});
   }
 
   let valid = settings.valid();

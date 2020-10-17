@@ -3,7 +3,7 @@ import { CommandoMessage } from 'discord.js-commando';
 import { TextChannel } from 'discord.js';
 import { getRepository } from 'typeorm';
 import { Settings } from '../entity/Settings';
-// import { addReactionCollector } from '../utils/reactionCollector';
+import { addReactionCollector } from '../utils/reactionCollector';
 
 export enum POST_RESULT {
   SUCCESS,
@@ -50,6 +50,7 @@ export const postToChannel = async ({
   const rulesMessage = await (targetChannel as TextChannel).send(settings.message);
 
   await rulesMessage.react('✅');
+  await addReactionCollector(rulesMessage);
 
   return POST_RESULT.SUCCESS;
 };
