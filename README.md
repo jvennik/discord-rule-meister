@@ -4,21 +4,17 @@ A simple rule bot that grants roles on join & when accepting rules.
 
 ## Commands
 
-`!rules set channel #rules` to select the target channel
+`?rules bind`: Bind the channel to post the rules message to (!roles bind #rules)
+`?rules check_settings`: Check to see if all the settings are set (?rules check_settings)
+`?rules grant_role`: Set the grant role to be granted to new members (?rules grant_role @Member)
+`?rules initial_role`: Set the initial role to be granted to new members (?rules initial_role @Unverified)
+`?rules message`: Set the message to be posted to the rules channel (?rules message Please follow these rules...)
+`?rules post`: Post the category messages and role reactions (?rules post)
 
-`!rules set initial_role @unverified` to set the role to be assigned on member join
+## Invite
 
-`!rules set grant_role @member` to set the role to be assigned when accepting the rules
-
-`!rules set message These are the rules to follow` to set the message to be sent to the target channel
-
-`!rules check settings` Verifies all settings
-
-`!rules post` To post to the target channel
-
-
-## Invite 
 https://discordapp.com/api/oauth2/authorize?client_id=698850999137468456&permissions=268444736&scope=bot
 
 ## Support discord
-https://discord.gg/p5US6h
+
+https://discord.gg/SBzmTn
