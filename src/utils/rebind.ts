@@ -30,6 +30,7 @@ export const rebind = async function rebind({
     }
 
     let bindMessage = null;
+    try {
     await (targetChannel as TextChannel).messages.fetch().then((messages) => {
       const msgArray = messages.array();
       console.log(`Rebinding for ${guild.id}: ${guild.name}`);
@@ -40,6 +41,10 @@ export const rebind = async function rebind({
         }
       });
     });
+  } catch (e) {
+    console.error(e)
+    console.log('Could not find target channel');
+  }
 
     if (bindMessage) {
       addReactionCollector(bindMessage);
