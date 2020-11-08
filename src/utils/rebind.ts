@@ -31,23 +31,26 @@ export const rebind = async function rebind({
 
     let bindMessage = null;
     try {
-    await (targetChannel as TextChannel).messages.fetch().then((messages) => {
-      const msgArray = messages.array();
-      console.log(`Rebinding for ${guild.id}: ${guild.name}`);
+      await (targetChannel as TextChannel).messages.fetch().then((messages) => {
+        const msgArray = messages.array();
+        console.log(`Rebinding for ${guild.id}: ${guild.name}`);
 
-      msgArray.forEach((message) => {
-        if (message.content.indexOf(settingsObj.message) >= 0) {
-          bindMessage = message;
-        }
+        msgArray.forEach((message) => {
+          if (message.content.indexOf(settingsObj.message) >= 0) {
+            bindMessage = message;
+          }
+        });
       });
-    });
-  } catch (e) {
-    console.error(e)
-    console.log('Could not find target channel');
-  }
+    } catch (e) {
+      console.log(
+        'Could not find target channel for ${guild.id}: ${guild.name}'
+      );
+    }
 
     if (bindMessage) {
       addReactionCollector(bindMessage);
+    } else {
+      console.log(`Could not find bindMessage for ${guild.id}: ${guild.name}`);
     }
   }
   return true;

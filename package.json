@@ -1,6 +1,6 @@
 {
   "name": "discord-rule-meister",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "A bot to manage rules for a server",
   "main": "dist/index.js",
   "scripts": {
