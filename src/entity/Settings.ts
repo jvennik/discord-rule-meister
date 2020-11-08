@@ -14,6 +14,9 @@ export class Settings {
   @Column({ type: 'varchar', name: 'message', nullable: true })
   public message: string;
 
+  @Column({ type: 'varchar', name: 'message_id', nullable: true})
+  public message_id: string;
+
   @Column({ type: 'varchar', name: 'initial_role', nullable: true })
   public initial_role: string;
 

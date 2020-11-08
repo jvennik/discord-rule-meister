@@ -60,5 +60,8 @@ export const postToChannel = async ({
   await rulesMessage.react('✅');
   await addReactionCollector(rulesMessage);
 
+  settings.message_id = rulesMessage.id;
+  await settingsRepository.save(settings);
+
   return POST_RESULT.SUCCESS;
 };

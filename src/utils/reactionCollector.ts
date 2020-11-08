@@ -1,6 +1,4 @@
-import { GuildMember, Message, MessageReaction } from 'discord.js';
-// import { grantRole } from './grantRole';
-// import { revokeRole } from './revokeRole';
+import { User, Message, MessageReaction } from 'discord.js';
 import { getRepository } from 'typeorm';
 import { Settings } from '../entity/Settings';
 
@@ -32,32 +30,34 @@ export const addReactionCollector = async (msg: Message): Promise<void> => {
 
   collector.on(
     'collect',
-    async (_, member: GuildMember) => {
+    async (reaction: MessageReaction, user: User) => {
       if (!msg.guild) {
         throw new Error('Guild missing from message');
       }
-      const user = msg.guild.member(member.id);
 
-      // If the reaction is from the bot, ignore it
-      if (member.user && member.user.bot) {
+      await reaction.message.guild?.members.fetch({user: [user.id], force: true});
+      const member = reaction.message.guild?.members.cache.find(member => member.id === user.id);
+
+      if (member && member.user && member.user.bot) {
         return;
       }
 
-      if (user) {
-        user.roles.add(settings.grant_role);
-        user.roles.remove(settings.initial_role);
+      if (member) {
+        member.roles.add(settings.grant_role);
+        member.roles.remove(settings.initial_role);
       }
     }
   );
 
   collector.on(
     'remove',
-    async (_, member: GuildMember) => {
-      const user = msg.guild?.member(member.id);
+    async (reaction: MessageReaction, user: User) => {
+      await reaction.message.guild?.members.fetch({user: [user.id], force: true});
+      const member = reaction.message.guild?.members.cache.find(member => member.id === user.id);
 
-      if (user) {
-        user.roles.add(settings.initial_role);
-        user.roles.remove(settings.grant_role);
+      if (member) {
+        member.roles.add(settings.initial_role);
+        member.roles.remove(settings.grant_role);
       }
     }
   );

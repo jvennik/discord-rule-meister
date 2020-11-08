@@ -31,10 +31,12 @@ export class BotController {
     this.client.on('guildCreate', async guild => {
       console.log(`Creating guild: ${guild.id}`);
       await createGuild({ guildId: guild.id });
+
     });
 
     this.client.on('guildMemberAdd', async (member: GuildMember) => {
       // Add initial role to new members if it exists
+      console.log('guildMemberAdd triggered')
       const initialRole = await getInitialRole({ guildId: member.guild.id });
       const user = member.guild.member(member.id);
 
