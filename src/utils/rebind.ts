@@ -29,14 +29,18 @@ export const rebind = async function rebind({
     }
 
     if (boundChannel instanceof TextChannel && !fetchByContent) {
-      const targetChannel = await boundChannel.fetch(true) as TextChannel;
+      const targetChannel = (await boundChannel.fetch(true)) as TextChannel;
 
       if (!targetChannel) {
         return false;
       }
 
       try {
-        const bindMessage = await targetChannel.messages.fetch(settingsObj.message_id, false, true);
+        const bindMessage = await targetChannel.messages.fetch(
+          settingsObj.message_id,
+          false,
+          true
+        );
 
         if (bindMessage) {
           console.log(`Rebinding for ${guild.id}: ${guild.name}`);
@@ -50,7 +54,7 @@ export const rebind = async function rebind({
       }
     } else if (fetchByContent) {
       // REMOVE AFTER MIGRATION
-      const targetChannel = await boundChannel.fetch(true) as TextChannel;
+      const targetChannel = (await boundChannel.fetch(true)) as TextChannel;
 
       if (!targetChannel) {
         return false;
@@ -58,12 +62,13 @@ export const rebind = async function rebind({
 
       try {
         let changed = false;
-        await targetChannel.messages.fetch().then(messages => {
-          messages.forEach(msg => {
+        await targetChannel.messages.fetch().then((messages) => {
+          messages.forEach((msg) => {
             if (msg.content.indexOf(settingsObj.message) >= 0) {
               settingsObj.message_id = msg.id;
               console.log(`Saving message ID for ${guild.id}: ${guild.name}`);
               changed = true;
+              addReactionCollector(msg);
             }
           });
         });
@@ -71,9 +76,8 @@ export const rebind = async function rebind({
         if (changed) {
           await settingsRepository.save(settingsObj);
         }
-
-      } catch(e) {
-        console.error(e)
+      } catch (e) {
+        console.error(e);
       }
     }
   }
