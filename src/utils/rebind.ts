@@ -43,7 +43,7 @@ export const rebind = async function rebind({
       });
     } catch (e) {
       console.log(
-        'Could not find target channel for ${guild.id}: ${guild.name}'
+        `Could not find target channel for ${guild.id}: ${guild.name}`
       );
     }
 

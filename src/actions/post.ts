@@ -8,7 +8,7 @@ import { addReactionCollector } from '../utils/reactionCollector';
 export enum POST_RESULT {
   SUCCESS,
   INVALID,
-  NO_CHANNEL_FOUND
+  NO_CHANNEL_FOUND,
 }
 
 export const postToChannel = async ({
@@ -44,10 +44,18 @@ export const postToChannel = async ({
   await (targetChannel as TextChannel).messages.fetch().then((messages) => {
     const msgArray = messages.array();
 
-    msgArray.forEach((message) => message.delete());
+    msgArray.forEach((message) => {
+      try {
+        message.delete();
+      } catch (e) {
+        // Could not delete a message, possible 404
+      }
+    });
   });
 
-  const rulesMessage = await (targetChannel as TextChannel).send(settings.message);
+  const rulesMessage = await (targetChannel as TextChannel).send(
+    settings.message
+  );
 
   await rulesMessage.react('✅');
   await addReactionCollector(rulesMessage);
