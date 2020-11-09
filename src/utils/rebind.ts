@@ -23,12 +23,7 @@ export const rebind = async function rebind({
       return false;
     }
 
-    let fetchByContent = false;
-    if (!settingsObj.message_id) {
-      fetchByContent = true;
-    }
-
-    if (boundChannel instanceof TextChannel && !fetchByContent) {
+    if (boundChannel instanceof TextChannel) {
       const targetChannel = (await boundChannel.fetch(true)) as TextChannel;
 
       if (!targetChannel) {
@@ -51,33 +46,6 @@ export const rebind = async function rebind({
         console.log(
           `Could not find target channel for ${guild.id}: ${guild.name}`
         );
-      }
-    } else if (fetchByContent) {
-      // REMOVE AFTER MIGRATION
-      const targetChannel = (await boundChannel.fetch(true)) as TextChannel;
-
-      if (!targetChannel) {
-        return false;
-      }
-
-      try {
-        let changed = false;
-        await targetChannel.messages.fetch().then((messages) => {
-          messages.forEach((msg) => {
-            if (msg.content.indexOf(settingsObj.message) >= 0) {
-              settingsObj.message_id = msg.id;
-              console.log(`Saving message ID for ${guild.id}: ${guild.name}`);
-              changed = true;
-              addReactionCollector(msg);
-            }
-          });
-        });
-
-        if (changed) {
-          await settingsRepository.save(settingsObj);
-        }
-      } catch (e) {
-        console.error(e);
       }
     }
   }
