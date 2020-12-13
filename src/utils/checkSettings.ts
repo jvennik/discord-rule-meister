@@ -26,12 +26,6 @@ export const checkSettings = async function checkSettings({
     message += "**channel**: MISSING ❌\n";
   }
 
-  if (settings.initial_role) {
-    message += `**initial_role**: <@&${settings.initial_role}> ✅\n`;
-  } else {
-    message += `**initial_role**: MISSING ❌\n`;
-  }
-
   if (settings.grant_role) {
     message += `**grant_role**: <@&${settings.grant_role}> ✅\n`;
   } else {

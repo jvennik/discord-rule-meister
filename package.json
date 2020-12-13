@@ -1,6 +1,6 @@
 {
   "name": "discord-rule-meister",
-  "version": "2.0.8",
+  "version": "2.1.0",
   "description": "A bot to manage rules for a server",
   "main": "dist/index.js",
   "scripts": {
@@ -51,8 +51,6 @@
     }
   },
   "lint-staged": {
-    "*.{ts,json,css,md}": [
-      "prettier --write"
-    ]
+    "*.{ts,json,css,md}": ["prettier --write"]
   }
 }

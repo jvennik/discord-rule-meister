@@ -17,14 +17,11 @@ export class Settings {
   @Column({ type: 'varchar', name: 'message_id', nullable: true})
   public message_id: string;
 
-  @Column({ type: 'varchar', name: 'initial_role', nullable: true })
-  public initial_role: string;
-
   @Column({ type: 'varchar', name: 'grant_role', nullable: true })
   public grant_role: string;
 
   valid() {
-    const values = [this.channel, this.message, this.initial_role, this.grant_role];
+    const values = [this.channel, this.message, this.grant_role];
     const validated = values.every(function(item) { 
       switch(item) {
         case null:

@@ -1,10 +1,9 @@
 import config from '../config';
 import logger from '../logger';
 import { CommandoClient } from 'discord.js-commando';
-import { Guild, GuildMember } from 'discord.js';
+import { Guild } from 'discord.js';
 import { Commands } from './commands';
 import createGuild from '../utils/createGuild';
-import { getInitialRole } from '../utils/getInitialRole';
 import { rebind } from '../utils/rebind';
 
 export class BotController {
@@ -32,18 +31,6 @@ export class BotController {
       console.log(`Creating guild: ${guild.id}`);
       await createGuild({ guildId: guild.id });
 
-    });
-
-    this.client.on('guildMemberAdd', async (member: GuildMember) => {
-      // Add initial role to new members if it exists
-      console.log('guildMemberAdd triggered')
-      const initialRole = await getInitialRole({ guildId: member.guild.id });
-      const user = member.guild.member(member.id);
-
-      if (initialRole && user) {
-        console.log(`Granting role ${initialRole} to ${user}`);
-        user.roles.add(initialRole);
-      }
     });
 
     this.client.on('ready', () => {

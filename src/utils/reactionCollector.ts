@@ -17,7 +17,7 @@ export const addReactionCollector = async (msg: Message): Promise<void> => {
     },
   });
 
-  if(!settings || !settings.initial_role || !settings.grant_role) {
+  if(!settings || !settings.grant_role) {
     return;
   }
 
@@ -44,7 +44,6 @@ export const addReactionCollector = async (msg: Message): Promise<void> => {
 
       if (member) {
         member.roles.add(settings.grant_role);
-        member.roles.remove(settings.initial_role);
       }
     }
   );
@@ -56,7 +55,6 @@ export const addReactionCollector = async (msg: Message): Promise<void> => {
       const member = reaction.message.guild?.members.cache.find(member => member.id === user.id);
 
       if (member) {
-        member.roles.add(settings.initial_role);
         member.roles.remove(settings.grant_role);
       }
     }
